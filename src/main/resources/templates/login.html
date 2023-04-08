@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--   xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml" -->
+	<title>Login V2</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" th:href="@{login/images/icons/favicon.ico}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{login/vendor/bootstrap/css/bootstrap.min.css}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{login/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{login/fonts/iconic/css/material-design-iconic-font.min.css}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{login/vendor/animate/animate.css}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" th:href="@{login/vendor/css-hamburgers/hamburgers.min.css}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{login/vendor/animsition/css/animsition.min.css}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{login/vendor/select2/select2.min.css}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" th:href="@{login/vendor/daterangepicker/daterangepicker.css}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{login/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{login/css/main.css}">
+<!--===============================================================================================-->
+</head>
+<body style="background-image: url(/login/images/icons/background-img.jpg); background-size: cover;">
+
+
+      
+   
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+			
+			
+				<form class="login100-form validate-form"  th:action="@{/login}" method="post">
+				 <label style="color:red; font-family: Arial, sans-serif; border:1px solid red; font-size: 12px; padding:3px;" th:if="${sessionError != null}">Session expired. Please Login to continue!</label> 
+	
+					<div class="img">
+						<img src="login/images/icons/logo.jpg" alt="">
+					</div>
+					
+					<label style="color:red; font-family: Arial, sans-serif; border:1px solid red; font-size: 12px; padding:3px;" th:if="${logError != null}">Please Check UserId or Password</label>
+		<label style="color:red; font-family: Arial, sans-serif; border:1px solid red; font-size: 12px; padding:3px;" th:if="${roleError != null}">User Not Mapped To LMS</label>
+			<label style="color:red; font-family: Arial, sans-serif; border:1px solid red; font-size: 12px; padding:3px;" th:if="${userError != null}">User does not exist</label>
+			<label style="color:red; font-family: Arial, sans-serif; border:1px solid red; font-size: 12px; padding:3px;" th:if="${credError != null}">Invalid UserId or Password</label>
+			<label style="color:red; font-family: Arial, sans-serif; border:1px solid red; font-size: 12px; padding:3px;" th:if="${connectionError != null}">Please Check the Connection</label>
+			
+					<div class="wrap-input100 validate-input" data-validate = "Enter valid user ID">
+						<input class="input100" type="text" id="userid" name="userid">
+						<span class="focus-input100" data-placeholder="User ID"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input class="input100" type="password"  id="password" name="password">
+						<span class="focus-input100" data-placeholder="Password"></span>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">Login</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script th:src="@{login/vendor/jquery/jquery-3.2.1.min.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{login/vendor/animsition/js/animsition.min.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{login/vendor/bootstrap/js/popper.js}"></script>
+	<script th:src="@{login/vendor/bootstrap/js/bootstrap.min.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{login/vendor/select2/select2.min.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{login/vendor/daterangepicker/moment.min.js}"></script>
+	<script th:src="@{login/vendor/daterangepicker/daterangepicker.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{login/vendor/countdowntime/countdowntime.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{login/js/main.js}"></script>
+
+</body>
+</html>
+
+				

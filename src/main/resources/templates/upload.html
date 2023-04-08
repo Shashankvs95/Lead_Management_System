@@ -1,0 +1,321 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Management System</title>
+
+  	<link rel="stylesheet" th:href="@{/assets/css/nutino.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.css}">
+
+    <link rel="stylesheet" th:href="@{/assets/vendors/perfect-scrollbar/perfect-scrollbar.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendors/bootstrap-icons/bootstrap-icons.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/app.css}">
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.svg}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/assets/vendors/simple-datatables/style.css}">
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+   <script th:src="@{/assets/js/jspdf.debug.js}"></script>
+    
+</head>
+
+<body style="font-size: 80%;">
+
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo">
+                            <a href="#"><img th:src="@{/images/icons/cagl.jpg}" alt="Logo" srcset=""></a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-menu">
+                    <ul class="menu">
+
+
+                        <li class="sidebar-item">
+                            <a th:href="@{/LMS/login/bmhomepage}" class='sidebar-link'>
+                                <i class="bi bi-house"></i>
+                                <span>Home</span>
+                            </a>
+                            
+                            
+                        </li>
+
+                            
+
+                    </ul>
+
+                </div>
+                
+                                <div class="sidebar-menu">
+                    <ul class="menu">
+                        
+
+                        <li class="sidebar-item  ">
+                            <a th:href="@{/login}" class='sidebar-link'>
+                                <i class="bi bi-door-closed"></i>
+                                <span>Sign-Out</span>
+                            </a>
+                        </li>
+
+                        
+
+                    </ul>
+                    
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+    
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-heading">
+                <!-- // Basic multiple Column Form section start -->
+                <section id="multiple-column-form">
+                    <div class="row match-height">
+                        <div class="col-12">
+                            <div class="card">
+                                <!-- <div class="card-header">
+                                    <h4 class="card-title">Branch Manager - Jayanagar</h4>
+                                </div> -->
+                                <div class="card-header">
+                                    <h4 class="card-title"><b> Branch Name - <b th:text="${session.branchName}"></b></b></h4>
+
+                                    
+									<div>
+                                        <div  id="gl1" name="gl" class="form-group col-md-12" >
+                                            
+                                                <label><b>Name:</b></label>
+                                            <label><b th:text="${session.username}"></b></label>
+                
+                                            <span><b>&#160</b></span>
+                                
+                                            
+                                                <label><b>ID:</b></label>
+                                            <label><b th:text="${session.userid}"></b></label>
+                                            
+                                        </div>
+                                        <h6 class="card-title">Grameen Griha Sudhaar Leads</h6>
+                                    </div>
+                                   
+                                    <div class="card-body" >
+                                     <div id="customers">
+                                        <table width="100%" class="table table-striped thead-dark text-center w-auto h-auto" style="font-size:7px; color:black;" id="table1">
+                                        
+          
+                                            <thead>
+                                                <tr class='warning'>
+                                                 <th>Customer Id</th>
+                                                 <th>Customer Name</th>
+                                                 <th>Kendra Id</th>
+                                                 <th>Kendra Name</th>
+                                                 <th>KM Id</th>
+                                                 <th>KM Name</th>
+                                                 <th>Meeting Day</th>
+                                                  <th>Eligible Amount</th>
+                                                 </tr>
+                                            </thead>
+                                          
+                                                <tr th:each="loan: ${loans}">
+  <td th:text="${loan.customer_id}"></td>
+  <td th:text="${loan.member_name}"></td>
+  <td th:text="${loan.kendra_id}"></td> 
+  <td th:text="${loan.kendra_name}"></td>
+  <td th:text="${loan.kendra_manager_id}"></td> 
+  <td th:text="${loan.kendra_manager_name}"></td> 
+  <td th:text="${loan.meeting_day}"></td>  
+  <td th:text="${loan.indicative_eligibile_amount}" ></td>                                       
+  </tr>
+          
+        
+                                        </table>
+                                        </div>
+                                      
+                                          <button class="btn btn-secondary" onclick="javascript:demoFromHTML();">Export to PDF</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                 
+                </section>
+                <!-- // Basic multiple Column Form section end -->
+            </div>
+            
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2021 &copy; CAGL</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script th:src="@{/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+    <script th:src="@{/assets/js/bootstrap.bundle.min.js}"></script>
+<style>
+
+body
+        {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+table
+        {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+        table th
+        {
+            background-color: #F7F7F7;
+            color: #333;
+            font-weight: bold;
+        }
+        table th, table td
+        {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }</style>*/
+    
+</body>
+<script>
+
+function slideToggle(t,e,o){0===t.clientHeight?j(t,e,o,!0):j(t,e,o)}function slideUp(t,e,o){j(t,e,o)}function slideDown(t,e,o){j(t,e,o,!0)}function j(t,e,o,i){void 0===e&&(e=400),void 0===i&&(i=!1),t.style.overflow="hidden",i&&(t.style.display="block");var p,l=window.getComputedStyle(t),n=parseFloat(l.getPropertyValue("height")),a=parseFloat(l.getPropertyValue("padding-top")),s=parseFloat(l.getPropertyValue("padding-bottom")),r=parseFloat(l.getPropertyValue("margin-top")),d=parseFloat(l.getPropertyValue("margin-bottom")),g=n/e,y=a/e,m=s/e,u=r/e,h=d/e;window.requestAnimationFrame(function l(x){void 0===p&&(p=x);var f=x-p;i?(t.style.height=g*f+"px",t.style.paddingTop=y*f+"px",t.style.paddingBottom=m*f+"px",t.style.marginTop=u*f+"px",t.style.marginBottom=h*f+"px"):(t.style.height=n-g*f+"px",t.style.paddingTop=a-y*f+"px",t.style.paddingBottom=s-m*f+"px",t.style.marginTop=r-u*f+"px",t.style.marginBottom=d-h*f+"px"),f>=e?(t.style.height="",t.style.paddingTop="",t.style.paddingBottom="",t.style.marginTop="",t.style.marginBottom="",t.style.overflow="",i||(t.style.display="none"),"function"==typeof o&&o()):window.requestAnimationFrame(l)})}
+
+let sidebarItems = document.querySelectorAll('.sidebar-item.has-sub');
+for(var i = 0; i < sidebarItems.length; i++) {
+    let sidebarItem = sidebarItems[i];
+	sidebarItems[i].querySelector('.sidebar-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        let submenu = sidebarItem.querySelector('.submenu');
+        if( submenu.classList.contains('active') ) submenu.style.display = "block"
+
+        if( submenu.style.display == "none" ) submenu.classList.add('active')
+        else submenu.classList.remove('active')
+        slideToggle(submenu, 300)
+    })
+}
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    var w = window.innerWidth;
+    if(w < 1200) {
+        document.getElementById('sidebar').classList.remove('active');
+    }
+});
+window.addEventListener('resize', (event) => {
+    var w = window.innerWidth;
+    if(w < 1200) {
+        document.getElementById('sidebar').classList.remove('active');
+    }else{
+        document.getElementById('sidebar').classList.add('active');
+    }
+});
+
+document.querySelector('.burger-btn').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('active');
+})
+document.querySelector('.sidebar-hide').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('active');
+
+})
+
+
+// Perfect Scrollbar Init
+if(typeof PerfectScrollbar == 'function') {
+    const container = document.querySelector(".sidebar-wrapper");
+    const ps = new PerfectScrollbar(container, {
+        wheelPropagation: false
+    });
+}
+
+// Scroll into active sidebar
+document.querySelector('.sidebar-item.active').scrollIntoView(false);
+
+/*function myFunction2() {
+	  var input, filter, table, tr, td, i;
+	  input = document.getElementById("mylist2");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("table1");
+	  tr = table.getElementsByTagName("tr");
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[3];
+	    if (td) {
+	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    }       
+	  }
+	}*/
+
+	function demoFromHTML() {
+	    var pdf = new jsPDF('p', 'pt', 'letter');
+	    // source can be HTML-formatted string, or a reference
+	    // to an actual DOM element from which the text will be scraped.
+	    source = $('#customers')[0];
+
+	    // we support special element handlers. Register them with jQuery-style 
+	    // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
+	    // There is no support for any other type of selectors 
+	    // (class, of compound) at this time.
+	    specialElementHandlers = {
+	        // element with id of "bypass" - jQuery style selector
+	        '#bypassme': function (element, renderer) {
+	            // true = "handled elsewhere, bypass text extraction"
+	            return true
+	        }
+	    };
+	    margins = {
+	        top: 80,
+	        bottom: 60,
+	        left: 40,
+	        width: 522
+	    };
+	    // all coords and widths are in jsPDF instance's declared units
+	    // 'inches' in this case
+	    
+	    pdf.fromHTML(
+	    source, // HTML string or DOM elem ref.
+	    margins.left, // x coord
+	    margins.top, { // y coord
+	        'width': margins.width, // max width of content on PDF
+	        'elementHandlers': specialElementHandlers
+	    },
+	  
+	    function (dispose) {
+	    	
+	        // dispose: object with X, Y of the last line add to the PDF 
+	        //          this allow the insertion of new lines after html
+	        pdf.save('GruhaSudharLoan.pdf');
+	    }, margins);
+	}
+
+</script>
+<script th:src="@{/assets/vendors/simple-datatables/simple-datatables.js}"></script>
+    <script>
+        // Simple Datatable
+        let table1 = document.querySelector('#table1');
+        let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
+<script type="text/javascript" th:src="@{/assets/js/pdfmake.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/html2canvas.min.js}"></script>
+    
+
+</html>

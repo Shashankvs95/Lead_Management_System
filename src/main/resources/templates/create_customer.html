@@ -1,0 +1,882 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="./css/create_customer.css">-->
+ <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+     <link rel="stylesheet" th:href="@{/assets/css/boxicons.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/fontawesome-free-6.2.0-web/css/all.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendors/choices.js/choices.min.css}"/>
+       <script type="text/javascript" th:src="@{/assets/vendors/choices.js/choices.min.js}"></script>
+    <!-- <link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}"> -->
+    <script type="text/javascript" th:src="@{/assets/js/bootstrap2.bundle.min.js}"></script>
+    <!-- <script src="https://kit.fontawesome.com/26f0d86eb7.js" crossorigin="anonymous"></script>-->
+<script type="text/javascript" th:src="@{/assets/js/jquery3.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery2.min.js}"></script>
+
+    <!-- <script src="./js/create_customer.js"></script> -->
+    <title>Create lead</title>
+
+    <style>
+    @import url("/fonts/fontcss2.css");
+:root{
+    --header-height: 3rem;
+    --nav-width: 68px;
+    /* --first-color: #039143; */
+    --first-color: #004886;
+    --first-color-light: #AFA5D9;
+    --white-color: #F7F6FB;
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 1rem;
+    --z-fixed: 100
+}*,::before,::after{
+    box-sizing: border-box
+}
+body{
+    position: relative;
+    margin: var(--header-height) 0 0 0;
+    padding: 0 1rem;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    transition: .5s
+}
+a{
+    text-decoration: none
+}
+.header{
+    width: 100%;
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background-color: var(--white-color);
+    z-index: var(--z-fixed);
+    transition: .5s
+}
+.header_toggle{
+    color: var(--first-color);
+    font-size: 1.5rem;
+    cursor: pointer
+}
+.header_img{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden
+}
+.header_img img{
+    width: 40px
+}
+.l-navbar{
+    position: fixed;
+    top: 0;
+    left: -30%;
+    width: var(--nav-width);
+    height: 100vh;
+    background-color: var(--first-color);
+    padding: .5rem 1rem 0 0;
+    transition: .5s;
+    z-index: var(--z-fixed)
+}
+.nav{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden
+}
+.nav_logo, .nav_link{
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 1rem;
+    padding: .5rem 0 .5rem 1.5rem
+}
+.nav_logo{
+    margin-bottom: 2rem
+}
+.nav_logo-icon{
+    font-size: 1.25rem;color: var(--white-color)
+}
+.nav_logo-name{
+    color: var(--white-color);
+    font-weight: 700
+}
+
+.nav_link{
+    position: relative;
+    color: var(--first-color-light);
+    margin-bottom: 1.5rem;
+    transition: .3s
+}
+.nav_link:hover{
+    color: var(--white-color)
+}
+.nav_icon{
+    font-size: 1.25rem
+}
+.show{
+    left: 0
+}
+.body-pd{
+    padding-left: calc(var(--nav-width) + 1rem)
+}
+.active{
+    color: var(--white-color)
+}
+.active::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 32px;
+    background-color: var(--white-color)
+}
+.height-100{
+    height:10vh
+}
+@media screen and (min-width: 768px){
+    body{
+        margin: calc(var(--header-height) + 1rem) 0 0 0;
+        padding-left: calc(var(--nav-width) + 0rem)
+    }
+    .header{
+        height: calc(var(--header-height) + 1rem);
+        padding: 0 1rem 0 calc(var(--nav-width) + -3rem)
+    }
+    .header_img{
+        width: 40px;
+        height: 40px
+    }
+    .header_img img{
+        width: 45px
+    }
+    .l-navbar{
+        /* left: 0; */
+        padding: 1rem 1rem 0 0
+    }
+    .show{
+        width: calc(var(--nav-width) + 132px)
+    }
+    .body-pd{
+        padding-left: calc(var(--nav-width) + 150px)
+    }
+}
+
+    </style>
+</head>
+<body id="body-pd">
+	<header class="header" id="header">
+		<div class="header_toggle">
+			<i class='bx bx-menu' id="header-toggle"></i>
+		</div>
+		<div class="header_img">
+			<img
+				th:src="@{/images/icons/logo.png}"
+				alt="">
+		</div>
+		<!--<div class="header_img"> <img src="data:image/jpeg;base64,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" alt=""> </div>-->
+	</header>
+	<div class="l-navbar" id="nav-bar">
+		<nav class="nav mt-6">
+			<div>
+				<a href="#" class="nav_logo"> <!-- <i class='bx bx-layer nav_logo-icon'></i> -->
+					<span class="nav_logo-name">CREATE LEAD <span class="d-flex"
+						style="display: inline;">
+							<table>
+								<tr>
+									<td>Name:&nbsp;</td>
+									<td th:text="${session.username}"></td>
+								</tr>
+								<tr>
+									<td>ID:&nbsp;</td>
+									<td th:text="${session.userid}"></td>
+								</tr>
+								<tr>
+									<td>Role:&nbsp;</td>
+									<td th:text="${session.role}"></td>
+								</tr>
+							</table>
+					</span></a> <a th:href="@{/LMS/login/bmhomepage}" class="nav_link active"> <i
+					class='fa fa-home'></i> <span class="nav_name"><b>Home</b></span>
+				</a>
+
+
+
+			</div>
+			<!-- <div>
+                    <a href="#" class="nav_logo">
+                    <i class='bx bx-layer nav_logo-icon'></i>
+                    <span class="nav_logo-name">CREATE LEAD
+                    <span class="d-flex" style="display:inline;">
+                    <h6 th:text="${session.userid}"></h6></span>
+                    </span>
+                </a>
+
+
+
+                </div> -->
+			<a th:href="@{/login}" class="nav_link"> <i
+				class='fa fa-sign-out'></i> <span class="nav_name">SignOut</span>
+			</a>
+		</nav>
+	</div>
+
+	<style>
+/* td{ */
+/* border: 2px solid black; */
+/* padding:0 15px; */
+/* } */
+input::after, textarea::after, select::after {
+	outline: none;
+	border: none;
+}
+</style>
+
+	<div class="height-80">
+
+		<div
+			class="col-lg-5 col-md-12 col-sm-12 mt-5 container justify-content-left card border border-success">
+			<!-- <h1 class="text-center">Create New Lead</h1> -->
+			<div class="card-body"></div>
+			<div class="table-responsive">
+
+				<label
+					style="color: green; font-family: Arial, sans-serif; font-size: 20px; padding: 3px;"
+					th:if="${bmlead != null}">Lead Submitted Successfully !</label> <label
+					style="color: green; font-family: Arial, sans-serif; font-size: 20px; padding: 3px;"
+					th:if="${kmlead != null}">Lead Submitted Successfully !</label>
+
+				<form th:action="@{/LMS/customers}" name="createLead" th:object="${customer}" method="post">
+
+
+					<table>
+						<tr>
+							<td><b>Branch Name:</b>&nbsp;</td>
+							<td th:text="${branchName}"></td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Branch ID:</b>&nbsp;</td>
+							<td th:text="${branchId}"></td>
+						</tr>
+					</table>
+
+					<div class="form-group mt-2">
+						<label>Kendra Name:</label>
+						<!-- <span style="color:red;">*</span> -->
+						<select name="kendraName" th:field=*{kendraName} id="kendra"
+							class="choices form-select border border-success">
+							<option value="Select" text="Select">Select</option>
+							<option th:each="kendra:${kendras}" 
+								th:value="${kendra.kendraName}" th:text="${kendra.kendraName}">
+							</option>
+						</select>
+					</div>
+
+					<div class="form-group mt-2">
+						<label>Type of Loan (Interested):</label>
+						<!-- <span style="color:red;">*</span>-->
+						<select name="loanName" class="form-select border border-success"
+							th:field=*{typeOfLoan} id="purpose" th:required="required">
+								<option th:each="product:${products}" 
+								th:value="${product.productName}" th:text="${product.productName}">
+							</option>
+						
+						</select>
+					</div>
+					
+					<div class="form-group mt-2" >
+						<label>Type of Customer:</label>
+						    <select name="typeOfCustomer" 
+						            th:field=*{typeOfCustomer} 
+						            id="cus"
+							        class="form-select border border-success"
+							        th:required="required">
+							 <option th:value="Existing" 
+							         th:text="Existing">Existing</option>
+						</select>
+					</div>
+					
+
+					<div class="form-group mt-3">
+						<span
+							style="color: red; font-family: Arial, sans-serif; border: 1px solid red; font-size: 12px; padding: 3px;"
+							th:if="${statusErrorbm!= null}">The Entered Customer ID
+							has already took this loan </span> <label
+							style="color: red; font-family: Arial, sans-serif; border: 1px solid red; font-size: 12px; padding: 3px;"
+							th:if="${idErrorbm!= null}">The Entered customer ID does
+							not exist</label> <label
+							style="color: red; font-family: Arial, sans-serif; border: 1px solid red; font-size: 12px; padding: 3px;"
+							th:if="${branchErrorbm!= null}">The Entered Customer ID
+							does not belong to this branch or Kendra</label> <label
+							style="color: red; font-family: Arial, sans-serif; border: 1px solid red; font-size: 12px; padding: 3px;"
+							th:if="${statusErrorkm!= null}">The Entered Customer ID
+							has already took this loan </label> <label
+							style="color: red; font-family: Arial, sans-serif; border: 1px solid red; font-size: 12px; padding: 3px;"
+							th:if="${idErrorkm!= null}">The Entered Customer ID does
+							not exist</label> <label
+							style="color: red; font-family: Arial, sans-serif; border: 1px solid red; font-size: 12px; padding: 3px;"
+							th:if="${branchErrorkm!= null}">The entered Customer ID
+							does not belong to this Branch</label> <label
+							style="color: red; font-family: Arial, sans-serif; border: 1px solid red; font-size: 12px; padding: 3px;"
+							th:if="${cusError!= null}">Customer does not exist. Please
+							Enter Valid Customer ID</label>
+					</div>
+
+					<div class="form-group mt-3" id="id">
+						<table>
+							<tr>
+								<td colspan="2">
+								 <label>Customer ID:</label>
+								  <span style="color: red;">*</span></td>
+								
+							  <td>
+								<select name="cusID"
+								        id="cusID" 
+								        th:field=*{customerID}
+									    class="form-select border border-success">    
+								  <option th:each="cust:${customers}"
+										  th:value="${cust.customerID}"
+										  th:text="${cust.customerID}">
+								  </option>
+								</select>
+									</td>
+
+								<style>
+#cusID {
+	margin-right: 4px;
+}
+</style>
+
+								
+								
+								<td>
+								&nbsp&nbsp&nbsp&nbsp
+								  <button type="button"
+								          id="hrt" 
+								          class="btn btn-outline-success-transperant border-success w-auto">Fetch</button> 								
+<style>
+#search {
+	padding-top: 10px;
+	margin-left: 20px;
+	size: 10px;
+}
+</style>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="form-group mt-2">
+						<label for="Loan Amount">Requested Loan Amount:</label> 
+						 <span style="color: red;">*</span>
+						<input type="number"
+						       th:field="*{loanAmount}"
+						       id="requestedLoanAmount"
+							   class="form-control border border-success" 
+							   th:required="required"
+							   name="loanAmount" />
+					</div>
+
+					
+
+					<div class="form-group mt-2">
+						<label>Customer Name:</label> 
+						<input type="text" 
+						       id="customerName"
+							   name="customerName" 
+							   th:field="*{customerName}"
+							   class="form-control border border-success"
+							   placeholder="Customer Name" 
+							   th:required="required" 
+							   th:readonly="readonly"/>
+					</div>
+
+					<div class="form-group mt-2">
+						<label for="mobileNumber">Primary mobile:</label>
+						 <span style="color: red;">*</span>
+						  <input type="number" 
+							     maxlength="10"
+							     minlength="10"
+							     title="Please enter exactly 10 digits"
+							     th:required="required" 
+							     pattern="(6|7|8|9)\d{9}"
+							     name="primaryMobileNumber" id="primaryMobileNumber"
+							     th:field="*{primaryMobileNumber}"
+							     class="form-control border border-success"
+							     placeholder="Primary mobile Number" />
+					</div>
+
+					<div class="form-group mt-2">
+						<label for="mobileNumber">Secondary mobile:</label> 
+						<input type="number" 	
+						       maxlength="10"
+							   minlength="10"
+							   title="Please enter exactly 10 digits"
+						       pattern="(6|7|8|9)\d{9}"
+						       name="secondaryMobileNumber"
+						       id="secondaryMobileNumber"
+							   th:field="*{secondaryMobileNumber}"
+							   class="form-control border border-success"
+							   placeholder="Secondary Mobile Number"/>
+					</div>
+
+					<div class="form-group mt-2">
+						<label>Date of Birth:</label>
+						 <input onclick="ValidateDOB()"
+							    id="DOB" 
+							    type="date"
+							    name="DOB" 
+							    th:field="*{DOB}"
+							    class="form-control border border-success"
+							    placeholder="dd-mm-yyyy">
+					</div>
+					
+					<table>
+						<tr>
+					      <div class="form-group mt-2">
+						    <td><label>Gender:</label>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+							<td><input type="radio"
+							           name="gender"
+							           th:value="Female"
+							           id="female"
+							           th:field=*{gender}
+							           th:readonly="readonly" />
+  						        <label>Female</label>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						    <td><input type="radio" 
+						               name="gender"
+						               th:value="Male" 
+						               id="male" 
+						               th:field=*{gender} 
+						               th:readonly="readonly" />
+						        <label>Male</label>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+  						</div>
+					  </tr>	
+					</table>
+					
+					<div class="form-group mt-2" id="vikas1">
+						<label>Occupation: </label> 
+						<select name="occupation" 
+						        id="occupation"
+							    class="form-select border border-success" 
+							    th:field=*{occupation}>
+							<option value="Select"
+							        text="Select">Select</option>
+							<option th:each="occupation:${occupations}" 
+							        th:value="${occupation.occupation_name}" 
+							        th:text="${occupation.occupation_name}"></option>
+						</select>
+					</div>
+
+					<div class="form-group mt-2" >
+					     <label>Address line 1:</label> 
+					       <input type="text" 
+					              name="addressLine1"
+							      th:field="*{addressLine1}" 
+							      id="addressLine1"
+							      class="form-control border border-success"
+							      placeholder="Address 1"/>
+					</div>
+
+					<div class="form-group mt-2" id="vikas7">
+						<label>Address line 2:</label> 
+						  <input type="text" 
+						         name="addressLine2"
+							     th:field="*{addressLine2}" 
+							     id="addressLine2"
+							     class="form-control border border-success"
+							     placeholder="Address 2"/>
+					</div>
+
+					<div class="form-group mt-2" id="vikas8">
+						<label>Pincode:</label>
+						 <input type="number"
+						        name="pincode" 
+						        id="pincode"
+							    th:field="*{pincode}"
+							    class="form-control border border-success"
+							    placeholder="pincode">
+					</div>
+
+					<div class="form-group mt-2" id="vikas9">
+						<label>District:</label>
+						  <input type="text" 
+						         name="district" 
+						         id="district"
+							     th:field="*{district}" 
+							     class="form-control border border-success"
+							     placeholder="District"/>
+					</div>
+
+                   <div class="form-group mt-2" id="vikas10">
+						<label>State:</label> 
+						  <select name="state" 
+						          th:field=*{state}
+						          id="state"
+							      class="form-select border border-success">
+							<option value="Select"
+							        text="Select" disabled>Select</option>
+							<option th:each="state:${states}"
+							        th:value="${state.state_name}" 
+							        th:text="${state.state_name}"></option></select>
+					</div>
+
+					<div class="form-group mt-2" id="vikas2">
+						<label>KYC type: </label> 
+						<select name="KYCtype1"
+						        id="KYCtype1"
+							    th:field=*{KYCtype1} 
+							    class="form-select border border-success">
+							<option value="Select"
+							        text="Select" disabled>Select</option>
+							<option th:each="kyc:${kycs}"
+							        th:value="${kyc.kyc_name}" 
+							        th:text="${kyc.kyc_name}"></option>
+						</select>
+					</div>
+					
+					<div class="form-group mt-2" id="vikas3">
+						<label>KYC number:</label>
+						  <input type="text" 
+						         name="KYCtype1" 
+						         id="KYCnumber1"
+							     th:field="*{KYCnumber1}"
+							     class="form-control border border-success"
+							     placeholder="KYC number"/>
+					</div>
+
+					<div class="form-group mt-2">
+						<label>Remarks:</label> 
+						   <input type="text" 
+						          name="remarks" 
+						          id="remarks"
+							      th:field="*{remarks}" 
+							      class="form-control border border-success"
+							      placeholder="Remarks" />
+					</div>
+					
+                    <div class="footer-body">
+                        <button type="submit" 
+                                id="submit"
+                                class="btn btn-success justify-content-right mt-2">Submit</button>
+                    </div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+<script th:src="@{/js/sweetalert.min.js}"></script>
+
+<script>
+document.body.addEventListener("click", clickBody);
+function clickBody() {
+    if(document.getElementById("nav-bar").contains('show'))
+    {
+    document.getElementById('header-toggle').click();
+    }
+}
+document.addEventListener("DOMContentLoaded", function(event) {
+
+    const showNavbar = (toggleId, navId, bodyId, headerId) =>{
+    const toggle = document.getElementById(toggleId),
+    nav = document.getElementById(navId),
+    bodypd = document.getElementById(bodyId),
+    headerpd = document.getElementById(headerId)
+
+    if(toggle && nav && bodypd && headerpd){
+    toggle.addEventListener('click', ()=>{
+    nav.classList.toggle('show')
+    toggle.classList.toggle('bx-x')
+    bodypd.classList.toggle('body-pd')
+    headerpd.classList.toggle('body-pd')
+    })
+    }
+    }
+
+    showNavbar('header-toggle','nav-bar','body-pd','header')
+
+    const linkColor = document.querySelectorAll('.nav_link')
+
+    function colorLink(){
+    if(linkColor){
+    linkColor.forEach(l=> l.classList.remove('active'))
+    this.classList.add('active')
+    }
+    }
+    linkColor.forEach(l=> l.addEventListener('click', colorLink))
+
+    });
+
+    function disabled(){
+        if(document.getElementById("openmarket")){
+            document.getElementById("cusID").readOnly = true;
+            document.getElementById("R-cagl").ariaReadOnly = true;
+        }
+    }
+    function setVal(){
+        document.getElementById("cusID").setVal("GL");
+    }
+
+    $(document).ready(function(){
+    $("select").change(function(){
+        $(this).find("option:selected").each(function(){
+            var optionValue = $(this).attr("value");
+            if(optionValue){
+                $(".box").not("." + optionValue).hide();
+                $("." + optionValue).show();
+            } else{
+                $(".box").hide();
+            }
+        });
+    }).change();
+});
+
+ $(document).ready(function(){
+    $('#purpose').on('change', function () {
+    // if (this.value == '1'); { No semicolon and I used === instead of ==
+    if (this.value === 'Grameen_Swarna_loan'){
+        $("#gold1").show();
+        $("#gold2").show();
+        $("#gold3").show();
+        $("#vikas1").hide();
+        $("#vikas2").hide();
+        $("#vikas3").hide();
+        $("#vikas4").hide();
+        $("#vikas5").hide();
+        $("#vikas6").hide();
+        $("#vikas7").hide();
+        $("#vikas8").hide();
+        $("#vikas9").hide();
+        $("#vikas10").hide();
+
+        
+    } else if(this.value === 'Grameen_Vikas_loan') {
+        $("#gold1").hide();
+        $("#gold2").hide();
+        $("#gold3").hide();
+        $("#vikas1").show();
+        $("#vikas2").show();
+        $("#vikas3").show();
+        $("#vikas4").show();
+        $("#vikas5").show();
+        $("#vikas6").show();
+        $("#vikas7").show();
+        $("#vikas8").show();
+        $("#vikas9").show();
+        $("#vikas10").show();
+        
+    }else{
+        $('#vikas').hide() && $('#gold').hide();
+        
+    }
+});
+});
+
+$(document).ready(function(){
+    $('#cus').on('change', function() {
+      if ( this.value == 'Existing')
+      //.....................^.......
+      {
+        $("#id").show();
+      }
+      else
+      {
+        $("#id").hide();
+      }
+    });
+});
+
+
+$('#hrt').unbind("click");
+$('#hrt').bind("click",function(){
+     var cusId = $('#cusID').val();
+     var purp = $('#purpose').val();
+     // var link = document.createElement('a');
+      //strtopass=btoa(cusId+","+purp);
+     var data = new FormData();
+     data.append("id", cusId);
+     data.append("ltyp", purp);
+
+     var xhr = new XMLHttpRequest();
+     xhr.withCredentials = true;
+
+     xhr.addEventListener("readystatechange", function() {
+       if(this.readyState === 4) {
+    	 jsonResp=JSON.parse(this.responseText);
+         console.log(this.responseText);
+         if(this.status==200 && jsonResp.err=="NA")
+        	 {
+		         $('#cusID').val(jsonResp.customerID)
+		         $('#customerName').val(jsonResp.customerName);
+		         $('#remarks').val(jsonResp.remarks);
+		         $('#purpose').val(jsonResp.typeOfLoan);
+		         $('#DOB').val(jsonResp.DOB);
+		         $('#primaryMobileNumber').val(jsonResp.primaryMobileNumber);
+		         $('#secondaryMobileNumber').val(jsonResp.secondaryMobileNumber);
+		         $('#occupation').val(jsonResp.occupation);
+				         
+		         if(jsonResp.gender == 'Female'){
+		        	 $('#female').val(jsonResp.gender);
+		        	 console.log(jsonResp.gender);
+		         }else{
+		        	 $('#male').val(jsonResp.gender);
+		         }
+		         document.createLead.gender.value=jsonResp.gender;
+		         
+		         $('#KYCtype1').val(jsonResp.KYCtype1);
+		         $('#KYCnumber1').val(jsonResp.KYCnumber1);
+		         $('#addressLine1').val(jsonResp.addressLine1);
+		         $('#addressLine2').val(jsonResp.addressLine2); 
+		         $('#pincode').val(jsonResp.pincode);
+		         $('#district').val(jsonResp.district);
+		         $('#state').val(jsonResp.state);
+        	 }
+         else if(this.status==200 && jsonResp.err!="NA")
+    	 {
+        	 swal({
+                 text: "User Already Has Submitted Loan for this Product!",
+                 icon: "warning",
+                 button: "OK",
+                 dangerMode: true
+             });
+    	 }
+         else{
+        	 console.log(this.responseText);
+         }
+       }
+     });
+
+     xhr.open("POST", "/LMS/APIHub");
+
+     xhr.send(data);  
+});
+
+
+
+
+  $('document').ready(function () { // Line 1
+    $('#kendra').on('change',function () {
+    	   var kendra = $('#kendra').val();
+var data = new FormData();
+data.append("kendraname",kendra);
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+	if(this.readyState === 4) {
+   	 jsonResp=JSON.parse(this.responseText);
+        if(this.status==200)
+       	 {
+    		var numbers = JSON.parse(this.responseText);
+     		var option = '';
+    		//alert(numbers.length);
+    		for (var i=0;i<numbers.length;i++){
+    		   option += '<option value="'+ numbers[i] + '">' + numbers[i] + '</option>';
+    		}
+    		$('#cusID').empty().append('<option value="Select">Select</option>');
+    		$('#cusID').append(option);
+    		
+       	 }
+        else{
+        	Alert("No Record Found");
+        }
+  }
+});
+  xhr.open("POST", "/LMS/APIHub/kendra");
+
+  xhr.send(data);
+
+    });
+  });
+  
+  
+  $("#submit").click(function(){
+      //e.preventDefault();
+        var kendraName = $('#kendra').val();
+        var typeOfLoan = $('#purpose').val();
+        var requestedLoanAmount = $('#requestedLoanAmount').val();
+        var typeOfCustomer = $('#cus').val();
+        var customerID = $('#cusID').val();
+        var customerName = $('#customerName').val();
+        var primaryMobileNumber = $('#primaryMobileNumber').val();
+        var secondaryMobileNumber = $('#secondaryMobileNumber').val();
+        var DOB = $('#DOB').val();
+        var gender = $('#gender').val();
+        var occupation = $('#occupation').val();
+        var addressLine1 = $('#addressLine1').val();
+        var addressLine2 = $('#addressLine2').val();
+        var pincode = $('#pincode').val();
+        var district = $('#district').val();
+        var state = $('#state').val();
+        var KYCtype1 = $('#KYCtype1').val();
+        var KYCnumber1 = $('#KYCnumber1').val();
+        var remarks = $('#remarks').val();
+        var strerr='';
+        if(kendraName == '' || kendraName=='Select' ){
+        	strerr+="\nInput Kendra Name";
+        }
+        if(customerID == null || customerID == 0 || customerID =='Select' || customerID == ''){
+        	strerr+="\nInput Customer ID"; 
+        }
+        if(typeOfLoan == '' || typeOfLoan == 'Select'){ 
+        	strerr+="\nInput Loan Type";
+        }
+        if( requestedLoanAmount == 0){
+        	strerr+="\nInput Loan Amount";
+        }
+        else if( requestedLoanAmount <=200000){
+        	strerr+="\n Loan Amount Should be > 200000";
+        	}
+        	else if(requestedLoanAmount >2000000){
+        		strerr+="\n Loan Amount Should be < 2000000";
+        	}
+        if(typeOfCustomer == '' ){
+        	strerr+="\nInput Customer Type";	
+ 		}
+         if(primaryMobileNumber ==0 || primaryMobileNumber.length!=10){
+        	 strerr+="\nInvalid Primary Mobile Number";
+		 }
+         if(pincode!=0 && pincode.length>0){
+         	if(pincode.length!=6)
+          	 	strerr+="\nInvalid Pincode";
+  		 }
+         if(pincode==''){
+        	 strerr+="\nEnter Pincode"; 
+         }
+         console.log(pincode);
+         if(secondaryMobileNumber!=0 && secondaryMobileNumber.length>0){
+        	if(secondaryMobileNumber.length!=10)
+         	 	strerr+="\nInvalid Secondary Mobile Number";
+ 		 }
+  
+		if(strerr=="")
+		{
+			swal({
+                text: "Lead submitted Successfully!",
+                icon: "success",
+                button: "OK",
+            });
+			return true;
+	       	
+        }else{
+        	
+        	swal({
+                text: strerr,
+                icon: "warning",
+                button: "OK",
+                dangerMode: true
+            });
+        	return false;
+        }
+       
+    });
+    </script>
+</html>
